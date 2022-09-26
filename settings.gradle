@@ -1,0 +1,4 @@
+rootProject.name = 'sky-simulacron-training'
+include 'training-app'
+include 'training-ft'
+

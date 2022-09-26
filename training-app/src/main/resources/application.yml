@@ -1,0 +1,34 @@
+#logging:
+#  level:
+#    reactor.netty: INFO
+#    org.springframework.cloud: TRACE
+#    org.springframework.web: DEBUG
+
+server:
+  port: 8080
+  servlet:
+    contextPath: /training
+
+spring:
+  jmx:
+    enable: false
+  application:
+    name: sky-simulacron-training
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /private
+      exposure.include: info,health,prometheus
+      path-mapping.prometheus: /metrics
+  info:
+    java:
+      enabled: true
+  health:
+    diskspace:
+      enabled: true
+    db:
+      enabled: true

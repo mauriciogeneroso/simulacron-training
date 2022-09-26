@@ -1,0 +1,71 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+plugins {
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id "com.gorylenko.gradle-git-properties" version '2.4.1'
+    id 'jacoco'
+    id 'java'
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+ext {
+    set('springCloudVersion', "2021.0.4")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+def commonJarConfigClosure = {
+    archiveName = "${rootProject.name}.jar"
+}
+
+bootJar commonJarConfigClosure
+
+springBoot {
+    buildInfo {
+        properties {
+            name = rootProject.name
+            version = project.version
+            additional = [
+                    host           : InetAddress.localHost.hostName,
+                    hostAddress    : InetAddress.localHost.getHostAddress(),
+                    operatingSystem: DefaultNativePlatform.currentOperatingSystem.getInternalOs().toString()
+            ]
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+test.finalizedBy jacocoTestReport
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.enabled true
+    }
+}

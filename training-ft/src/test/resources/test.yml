@@ -1,0 +1,11 @@
+spring:
+  jmx:
+    enable: false
+  application:
+    name: training-functional-tests
+  profiles:
+    active: local
+
+service:
+  host: http://localhost:8080
+  context-path: /training
