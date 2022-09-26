@@ -1,0 +1,27 @@
+version: '3.8'
+
+networks:
+  cassandra:
+
+services:
+  cassandra1:
+    image: cassandra:4.0.6
+    container_name: cassandra
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+    networks:
+      - cassandra
+    ports:
+      - "9042:9042"
+    volumes:
+      - ./cassandra/data/:/var/lib/cassandra
+    environment:
+      CASSANDRA_DC: datacenter1
+      CASSANDRA_PASSWORD: cassandra
+      # By default, Cassandra autodetects the available host memory and takes as much as it can.
+      # Therefore, memory options are mandatory if multiple Cassandras are launched in the same node.
+      MAX_HEAP_SIZE: 2G
+      HEAP_NEWSIZE: 200M
