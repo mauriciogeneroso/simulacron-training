@@ -4,12 +4,14 @@ import com.generoso.training.simulacron.SimulacronTrainingApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Profile("local")
+@DependsOn("simulacron")
 @Configuration
 public class LocalApplicationServer {
 

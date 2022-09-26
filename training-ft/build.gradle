@@ -25,6 +25,10 @@ dependencies {
 
     testImplementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDataBinding}"
 
+    testImplementation('com.datastax.oss.simulacron:simulacron-driver-3x:0.11.0') {
+        exclude group: 'com.datastax.cassandra'
+    }
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "com.google.guava:guava:31.1-jre"
 }
