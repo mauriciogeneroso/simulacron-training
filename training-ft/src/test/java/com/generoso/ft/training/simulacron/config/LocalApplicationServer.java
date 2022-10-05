@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Profile("local")
-@DependsOn("simulacron")
+@DependsOn("cassandraCluster")
 @Configuration
 public class LocalApplicationServer {
 

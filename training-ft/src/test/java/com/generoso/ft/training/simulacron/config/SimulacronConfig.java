@@ -18,7 +18,7 @@ import static com.datastax.oss.simulacron.server.AddressResolver.defaultStarting
 public class SimulacronConfig {
 
     @Bean
-    public BoundCluster simulacron() {
+    public BoundCluster cassandraCluster() {
         try {
             var server = Server.builder().build();
 

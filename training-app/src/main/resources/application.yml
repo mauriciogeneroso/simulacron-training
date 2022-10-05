@@ -3,6 +3,7 @@
 #    reactor.netty: INFO
 #    org.springframework.cloud: TRACE
 #    org.springframework.web: DEBUG
+#    com.datastax.oss: DEBUG
 
 server:
   port: 8080

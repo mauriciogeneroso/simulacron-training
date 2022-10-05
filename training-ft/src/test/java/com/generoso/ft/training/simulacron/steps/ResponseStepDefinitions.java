@@ -1,6 +1,5 @@
 package com.generoso.ft.training.simulacron.steps;
 
-import com.generoso.ft.training.simulacron.client.model.JsonMapper;
 import com.generoso.ft.training.simulacron.state.ScenarioState;
 import io.cucumber.java.en.Then;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class ResponseStepDefinitions {
 
     private final ScenarioState scenarioState;
-    private final JsonMapper jsonMapper;
 
     @Then("the response status code should be {int}")
     public void theResponseCode(int expectedResponseCode) {

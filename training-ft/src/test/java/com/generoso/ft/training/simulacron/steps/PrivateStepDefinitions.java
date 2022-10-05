@@ -7,6 +7,7 @@ import com.generoso.ft.training.simulacron.client.model.Endpoint;
 import com.generoso.ft.training.simulacron.client.model.JsonMapper;
 import com.generoso.ft.training.simulacron.client.model.PrivateHealthResponse;
 import com.generoso.ft.training.simulacron.state.ScenarioState;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,15 @@ public class PrivateStepDefinitions {
             assertThat(component).isNotNull();
             assertThat(component.get("status").asText()).isEqualTo(status);
         });
+    }
+
+    @Then("health components should contain the status:")
+    public void healthComponentsShouldContainTheStatus(DataTable data) throws JsonProcessingException {
+        for (var rowNumber = 0; rowNumber < data.height(); rowNumber++) {
+            var componentName = data.row(rowNumber).get(0);
+            var healthStatus = data.row(rowNumber).get(1);
+            healthComponentsShouldContainTheStatus(healthStatus, List.of(componentName));
+        }
     }
 
     @Then("the body of the message contains {string}")
