@@ -1,6 +1,6 @@
 # Simulacron quick training
 
-[![Build and test](https://github.com/mauricio-sky/sky-simulacron-training/actions/workflows/build-test-pipeline.yml/badge.svg)](https://github.com/mauricio-sky/sky-simulacron-training/actions/workflows/build-test-pipeline.yml)
+[![Build and test](https://github.com/mauriciogeneroso/simulacron-training/actions/workflows/build-test-pipeline.yml/badge.svg)](https://github.com/mauriciogeneroso/simulacron-training/actions/workflows/build-test-pipeline.yml)
 
 This is a quick training about how to use [simulacron](https://github.com/datastax/simulacron).
 
@@ -8,7 +8,7 @@ Simulacron is a native protocol server simulator that helps facilitate the testi
 
 ## Slides
 
-A PDF document is included [here](./slides/simulacron.ppt) with an introduction to Simulacron.
+A PDF document is included [here](./slides/simulacron-training.pdf) with an introduction to Simulacron.
 
 ## How to run
 
@@ -22,13 +22,7 @@ Docker compose will build a docker image for the spring application, a build is 
 
 ## Docs
 
-The application is pretty simple and includes:
-- Actuator endpoints (info, health and metrics)
-   * /private/info
-   * /private/health
-   * /private/metrics
-
-Todo...
+See [Wiki](https://github.com/mauriciogeneroso/simulacron-training/wiki)!
 
 ## Exercises
 
