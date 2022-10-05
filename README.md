@@ -1,5 +1,7 @@
 # Simulacron quick training
 
+[![Build and test](https://github.com/mauricio-sky/sky-simulacron-training/actions/workflows/build-test-pipeline.yml/badge.svg)](https://github.com/mauricio-sky/sky-simulacron-training/actions/workflows/build-test-pipeline.yml)
+
 This is a quick training about how to use [simulacron](https://github.com/datastax/simulacron).
 
 Simulacron is a native protocol server simulator that helps facilitate the testing of scenarios that are difficult to reliably reproduce in driver clients and applications.
@@ -10,12 +12,13 @@ A PDF document is included [here](./slides/simulacron.ppt) with an introduction 
 
 ## How to run
 
-To run the application it is required Java 17 and docker.
-
-With this setup, just need to start the docker compose
+To run the application it is required `Java 17` and `docker/docker-compose`, then just need to generate the jar and start the docker compose
 ```shell
-docker-compose up
+./gradlew build && docker-compose up -d
 ```
+
+Docker compose will build a docker image for the spring application, a build is required to generate the jar. 
+`-d` is used for detached mode.
 
 ## Docs
 
@@ -24,6 +27,8 @@ The application is pretty simple and includes:
    * /private/info
    * /private/health
    * /private/metrics
+
+Todo...
 
 ## Exercises
 
