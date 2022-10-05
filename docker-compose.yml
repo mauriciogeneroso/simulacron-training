@@ -1,10 +1,7 @@
 version: '3.8'
 
-networks:
-  cassandra:
-
 services:
-  cassandra1:
+  cassandra:
     image: cassandra:4.0.6
     container_name: cassandra
     healthcheck:
@@ -12,8 +9,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 60
-    networks:
-      - cassandra
     ports:
       - "9042:9042"
     volumes:
@@ -25,3 +20,20 @@ services:
       # Therefore, memory options are mandatory if multiple Cassandras are launched in the same node.
       MAX_HEAP_SIZE: 2G
       HEAP_NEWSIZE: 200M
+
+  training-app:
+    container_name: training-app
+    build: training-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    environment:
+      - SPRING_DATA_CASSANDRA_CONTACTPOINTS=cassandra
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/private/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5

@@ -22,7 +22,7 @@ java {
 }
 
 def commonJarConfigClosure = {
-    archiveName = "${rootProject.name}.jar"
+    archiveName = "${project.name}.jar"
 }
 
 bootJar commonJarConfigClosure

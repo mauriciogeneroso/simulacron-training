@@ -15,6 +15,10 @@ spring:
     enable: false
   application:
     name: sky-simulacron-training
+  data:
+    cassandra:
+      contact-points: 127.0.0.1
+      port: 9042
 
 management:
   endpoint:
