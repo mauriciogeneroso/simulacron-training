@@ -1,4 +1,4 @@
-rootProject.name = 'sky-simulacron-training'
+rootProject.name = 'simulacron-training'
 include 'training-app'
 include 'training-ft'
 
