@@ -34,7 +34,7 @@ Feature: Checking Service Discovery actuator endpoints return expected outputs
     Then the response status code should be 200
     And it should return build information containing the following keys and values:
       | artifact | training-app            |
-      | name     | sky-simulacron-training |
+      | name     | simulacron-training |
       | group    | com.generoso            |
     And the response body contains:
       | git   |
