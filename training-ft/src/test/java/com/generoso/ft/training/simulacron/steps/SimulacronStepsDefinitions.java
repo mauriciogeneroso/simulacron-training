@@ -3,6 +3,7 @@ package com.generoso.ft.training.simulacron.steps;
 import com.datastax.oss.protocol.internal.request.Query;
 import com.datastax.oss.simulacron.common.codec.ConsistencyLevel;
 import com.datastax.oss.simulacron.server.BoundCluster;
+import com.generoso.training.simulacron.model.Book;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 
@@ -18,7 +19,8 @@ public class SimulacronStepsDefinitions {
             "HEALTH_CHECK", "SELECT now() FROM system.local",
             "ADD_BOOK", "INSERT INTO book (id,isbn,publisher,title) VALUES (?,?,?,?)",
             "GET_ALL_BOOKS", "SELECT * FROM book",
-            "GET_BOOK_BY_ID", "SELECT * FROM book WHERE id=? LIMIT 1"
+            "GET_BOOK_BY_ID", "SELECT * FROM book WHERE id=? LIMIT 1",
+            "DELETE_BOOK", "DELETE FROM book WHERE id=?"
     );
 
     private final BoundCluster cassandraCluster;
@@ -43,6 +45,14 @@ public class SimulacronStepsDefinitions {
         cassandraCluster.prime(when(queries.get(query))
                 .then(unavailable(ConsistencyLevel.LOCAL_QUORUM, 0, 0)));
     }
+
+    @And("cassandra query {word} returns a book with id {word}")
+    public void cassandraReturnsBookOnQuery(String query, String id) {
+        cassandraCluster.prime(when(queries.get(query))
+                .then(new RowBuilder()
+                        .row("id", id)));
+    }
+
 
     @And("cassandra query {word} was executed {word}")
     public void cassandraQueryWasExecuted(String query, String frequency) {

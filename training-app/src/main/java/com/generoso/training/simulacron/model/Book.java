@@ -1,13 +1,16 @@
 package com.generoso.training.simulacron.model;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
 
-@Data
 @Table
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book implements Serializable {
 
     @Id
@@ -18,4 +21,8 @@ public class Book implements Serializable {
     private String title;
 
     private String publisher;
+
+    public Book(String id) {
+        this.id = id;
+    }
 }
