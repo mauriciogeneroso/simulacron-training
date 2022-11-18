@@ -45,6 +45,29 @@ public class SimulacronUtils {
         }
     }
 
+    public static void startMultiNodeSimulacron() {
+        try {
+            var server = Server.builder().build();
+            var clusterSpec = ClusterSpec.builder().build();
+            var node1Address = new Inet4Resolver(defaultStartingIp, CASSANDRA_PORT);
+            var node2Address = new Inet4Resolver(new byte[]{127, 0, 0, 2}, CASSANDRA_PORT);
+
+            var dataCenter = clusterSpec.addDataCenter().withName("datacenter1")
+                    .withCassandraVersion("3.8").build();
+
+            dataCenter.addNode().withAddress(node1Address.get()).withName("Default").build();
+            dataCenter.addNode().withAddress(node2Address.get()).withName("Node1").build();
+            var boundCluster = server.register(clusterSpec);
+
+            log.info("Starting Multinode Simulacron node");
+            SimulacronUtils.simulacronCluster = boundCluster;
+            SimulacronUtils.isSimulacronRunning = true;
+        } catch (Exception ex) {
+            log.error("Could not start cassandra with simulacron ", ex);
+            throw ex;
+        }
+    }
+
     public static void stopSimulacron() {
         if (isSimulacronRunning) {
             SimulacronUtils.simulacronCluster.stop();

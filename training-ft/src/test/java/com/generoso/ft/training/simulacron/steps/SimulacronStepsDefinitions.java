@@ -3,7 +3,6 @@ package com.generoso.ft.training.simulacron.steps;
 import com.datastax.oss.protocol.internal.request.Query;
 import com.datastax.oss.simulacron.common.codec.ConsistencyLevel;
 import com.datastax.oss.simulacron.server.BoundCluster;
-import com.generoso.training.simulacron.model.Book;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 
@@ -53,7 +52,6 @@ public class SimulacronStepsDefinitions {
                         .row("id", id)));
     }
 
-
     @And("cassandra query {word} was executed {word}")
     public void cassandraQueryWasExecuted(String query, String frequency) {
         if (frequency.equals("once")) {
@@ -79,6 +77,36 @@ public class SimulacronStepsDefinitions {
                 .count();
 
         assertThat(queryCount).isEqualTo(frequency);
+    }
+
+    @And("both the nodes in the cluster return unavailable for the query {word}")
+    public void bothNodesReturnsTimeOutForTheQuery(String query) {
+        cassandraCluster.dc(0).getNodes().forEach(node ->
+                node.prime(when(queries.get(query))
+                        .then(unavailable(ConsistencyLevel.LOCAL_QUORUM, 0, 0)))
+        );
+    }
+
+    @And("both the nodes receive the query {word}")
+    public void bothNodesReceiveTheQuery(String query) {
+        var cluster = getSimulacronCluster();
+        var node1Logs = cluster.node(0).getLogs().getQueryLogs();
+        var node2Logs = cluster.node(1).getLogs().getQueryLogs();
+
+        var node1LogsCount = node1Logs.stream()
+                .filter(log -> log.getFrame().message instanceof Query)
+                .map(queryLog -> (Query) queryLog.getFrame().message)
+                .filter(queryObject -> queryObject.query.equalsIgnoreCase(queries.get(query)))
+                .count();
+
+        var node2LogsCount = node2Logs.stream()
+                .filter(log -> log.getFrame().message instanceof Query)
+                .map(queryLog -> (Query) queryLog.getFrame().message)
+                .filter(queryObject -> queryObject.query.equalsIgnoreCase(queries.get(query)))
+                .count();
+
+        assertThat(node1LogsCount).isEqualTo(1);
+        assertThat(node2LogsCount).isEqualTo(1);
     }
 
     private void resetSimulacronPrimes() {
