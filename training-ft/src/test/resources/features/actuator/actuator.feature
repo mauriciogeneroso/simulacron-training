@@ -9,6 +9,7 @@ Feature: Checking actuator endpoints return expected outputs
       | diskSpace |
       | ping      |
       | cassandra |
+    And query HEALTH_CHECK has run 1
 
   @simulacron
   Scenario: When application is healthy, but cassandra is down, should return unhealthy application
@@ -22,6 +23,7 @@ Feature: Checking actuator endpoints return expected outputs
       | diskSpace | UP   |
       | ping      | UP   |
       | cassandra | DOWN |
+    And query HEALTH_CHECK has run 1
 
   Scenario: When application is running, display metric content
     Given a private endpoint PRIVATE_METRICS is prepared

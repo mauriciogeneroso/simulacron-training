@@ -60,6 +60,18 @@ public class SimulacronStepsDefinitions {
         assertThat(queryCount).isEqualTo(frequency);
     }
 
+    @And("query {word} has run {int}")
+    public void assertNodeReceivedQuery(String query, int expectedCount) {
+        var queryLogsNode = cassandraCluster.getLogs().getQueryLogs();
+        var queriesRunCount = queryLogsNode.stream()
+                .filter(log -> log.getFrame().message instanceof Query)
+                .map(queryLog -> (Query) queryLog.getFrame().message)
+                .filter(queryObject -> queryObject.query.equalsIgnoreCase(queries.get(query)))
+                .count();
+
+        assertThat(queriesRunCount).isEqualTo(expectedCount);
+    }
+
     private void resetSimulacronPrimes() {
         if (cassandraCluster != null) {
             cassandraCluster.clearPrimes(true);
