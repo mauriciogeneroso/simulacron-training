@@ -1,4 +1,4 @@
-package com.generoso.ft.training.simulacron.client;
+package com.generoso.ft.training.simulacron.client.template;
 
 import com.generoso.ft.training.simulacron.client.model.Endpoint;
 import lombok.extern.slf4j.Slf4j;
@@ -56,19 +56,23 @@ public abstract class RequestTemplate {
     private void initDefaults() {
         this.pathParameter = "";
         this.headers = defaultHeaders();
+        this.body = defaultBody();
     }
 
     public Map<String, String> defaultHeaders() {
-        Map<String, String> headersMap = new HashMap<>();
+        var headersMap = new HashMap<String, String>();
         headersMap.put("Accept", "application/json");
         headersMap.put("Content-Type", "application/json");
 
         return headersMap;
     }
 
+    public String defaultBody() {
+        return null;
+    }
     private URI buildUri() {
         try {
-            String finalUri = host + contextPath + getEndpoint().getPath() + pathParameter;
+            var finalUri = host + contextPath + getEndpoint().getPath() + pathParameter;
             log.info("Building Uri: {}", finalUri);
             return new URI(finalUri);
         } catch (URISyntaxException e) {

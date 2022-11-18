@@ -5,16 +5,14 @@ import com.datastax.oss.simulacron.common.codec.ConsistencyLevel;
 import com.datastax.oss.simulacron.server.BoundCluster;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
 import static com.datastax.oss.simulacron.common.stubbing.PrimeDsl.readTimeout;
 import static com.datastax.oss.simulacron.common.stubbing.PrimeDsl.when;
+import static com.generoso.ft.training.simulacron.config.SimulacronConfig.getSimulacronCluster;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SimulacronStepsDefinitions {
 
     private static final Map<String, String> queries = Map.of(
@@ -22,6 +20,10 @@ public class SimulacronStepsDefinitions {
     );
 
     private final BoundCluster cassandraCluster;
+
+    public SimulacronStepsDefinitions() {
+        this.cassandraCluster = getSimulacronCluster();
+    }
 
     @After
     public void cleanUp() {
@@ -59,7 +61,9 @@ public class SimulacronStepsDefinitions {
     }
 
     private void resetSimulacronPrimes() {
-        cassandraCluster.clearPrimes(true);
-        cassandraCluster.clearLogs();
+        if (cassandraCluster != null) {
+            cassandraCluster.clearPrimes(true);
+            cassandraCluster.clearLogs();
+        }
     }
 }

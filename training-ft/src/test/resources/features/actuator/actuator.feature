@@ -1,4 +1,4 @@
-Feature: Checking Service Discovery actuator endpoints return expected outputs
+Feature: Checking actuator endpoints return expected outputs
 
   Scenario: When application is healthy, returns 200 response status code and "UP" response body on health endpoint
     Given a private endpoint PRIVATE_HEALTH_CHECK is prepared
@@ -10,6 +10,7 @@ Feature: Checking Service Discovery actuator endpoints return expected outputs
       | ping      |
       | cassandra |
 
+  @simulacron
   Scenario: When application is healthy, but cassandra is down, should return unhealthy application
     Given a private endpoint PRIVATE_HEALTH_CHECK is prepared
     And cassandra query HEALTH_CHECK times out

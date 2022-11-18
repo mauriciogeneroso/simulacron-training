@@ -4,26 +4,29 @@ import com.datastax.oss.simulacron.common.cluster.ClusterSpec;
 import com.datastax.oss.simulacron.server.BoundCluster;
 import com.datastax.oss.simulacron.server.Inet4Resolver;
 import com.datastax.oss.simulacron.server.Server;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import static com.datastax.oss.simulacron.server.AddressResolver.defaultStartingIp;
-import static com.datastax.oss.simulacron.server.AddressResolver.defaultStartingPort;
+import static com.generoso.ft.training.simulacron.utils.NetworkUtils.findUnusedLocalPort;
 
 @Slf4j
-@Profile("local")
-@Configuration
+@Component
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SimulacronConfig {
 
-    @Bean
-    public BoundCluster cassandraCluster() {
+    private static final int CASSANDRA_PORT = findUnusedLocalPort();
+
+    private static BoundCluster simulacronCluster;
+
+    public static void startSimulacron() {
         try {
             var server = Server.builder().build();
 
             var clusterSpec = ClusterSpec.builder().build();
-            var addressResolver = new Inet4Resolver(defaultStartingIp, defaultStartingPort);
+            var addressResolver = new Inet4Resolver(defaultStartingIp, CASSANDRA_PORT);
             var dataCenter = clusterSpec.addDataCenter()
                     .withName("datacenter1").withCassandraVersion("3.8").build();
 
@@ -33,10 +36,22 @@ public class SimulacronConfig {
             log.info("Starting Simulacron node");
             boundCluster.start();
             log.info("Simulacron started successfully");
-            return boundCluster;
+            SimulacronConfig.simulacronCluster = boundCluster;
         } catch (Exception ex) {
             log.error("Could not start cassandra with simulacron ", ex);
             throw ex;
         }
+    }
+
+    public static void stopSimulacron() {
+        SimulacronConfig.simulacronCluster.stop();
+    }
+
+    public static BoundCluster getSimulacronCluster() {
+        return SimulacronConfig.simulacronCluster;
+    }
+
+    public static String getSimulacronPort() {
+        return String.valueOf(CASSANDRA_PORT);
     }
 }

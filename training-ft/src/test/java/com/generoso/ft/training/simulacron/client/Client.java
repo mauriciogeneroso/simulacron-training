@@ -1,5 +1,6 @@
 package com.generoso.ft.training.simulacron.client;
 
+import com.generoso.ft.training.simulacron.client.template.RequestTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

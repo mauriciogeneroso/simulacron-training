@@ -6,7 +6,6 @@ import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration(classes = {
         TestConfiguration.class,
-        LocalApplicationServer.class,
         SimulacronConfig.class
 },
         initializers = YamlFileApplicationContextInitializer.class)

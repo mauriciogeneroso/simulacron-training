@@ -1,4 +1,4 @@
-package com.generoso.ft.training.simulacron.client;
+package com.generoso.ft.training.simulacron.client.template;
 
 import com.generoso.ft.training.simulacron.client.model.Endpoint;
 import org.springframework.beans.factory.annotation.Autowired;

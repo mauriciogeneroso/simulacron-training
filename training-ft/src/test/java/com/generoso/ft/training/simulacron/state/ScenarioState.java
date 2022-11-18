@@ -1,6 +1,6 @@
 package com.generoso.ft.training.simulacron.state;
 
-import com.generoso.ft.training.simulacron.client.RequestTemplate;
+import com.generoso.ft.training.simulacron.client.template.RequestTemplate;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 

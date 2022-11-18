@@ -2,7 +2,7 @@ package com.generoso.ft.training.simulacron.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.generoso.ft.training.simulacron.client.RequestTemplate;
+import com.generoso.ft.training.simulacron.client.template.RequestTemplate;
 import com.generoso.ft.training.simulacron.client.model.Endpoint;
 import com.generoso.ft.training.simulacron.client.model.JsonMapper;
 import com.generoso.ft.training.simulacron.client.model.PrivateHealthResponse;

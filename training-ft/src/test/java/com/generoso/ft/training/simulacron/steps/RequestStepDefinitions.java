@@ -1,8 +1,8 @@
 package com.generoso.ft.training.simulacron.steps;
 
 import com.generoso.ft.training.simulacron.client.Client;
-import com.generoso.ft.training.simulacron.client.RequestTemplate;
 import com.generoso.ft.training.simulacron.client.model.Endpoint;
+import com.generoso.ft.training.simulacron.client.template.RequestTemplate;
 import com.generoso.ft.training.simulacron.state.ScenarioState;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -42,6 +42,6 @@ public class RequestStepDefinitions {
             return requestTemplates.get(endpoint);
         }
 
-        throw new RuntimeException("Invalid request template provided.");
+        throw new RuntimeException("Invalid request template provided: " + endpoint);
     }
 }
