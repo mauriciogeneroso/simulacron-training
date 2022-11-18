@@ -20,10 +20,6 @@ To run the application it is required `Java 17` and `docker/docker-compose`, the
 Docker compose will build a docker image for the spring application, a build is required to generate the jar. 
 `-d` is used for detached mode.
 
-## Docs
-
-See [Wiki](https://github.com/mauriciogeneroso/simulacron-training/wiki)!
-
 ## Exercises
 
 This Simulacron training contains functional tests for create book endpoint as first implementation.
