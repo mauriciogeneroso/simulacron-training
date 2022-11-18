@@ -26,4 +26,18 @@ See [Wiki](https://github.com/mauriciogeneroso/simulacron-training/wiki)!
 
 ## Exercises
 
-Todo...
+This Simulacron training contains functional tests for create book endpoint as first implementation.
+
+As exercise, implement the following scenarios:
+1. `GET /books`
+   - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database 
+   - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+2. `GET /books/{id}`
+   - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database
+   - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+3. `PUT /books/{id}`
+   - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database
+   - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+4. `DELETE /books/{id}`
+    - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database
+    - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
