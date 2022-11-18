@@ -30,14 +30,20 @@ This Simulacron training contains functional tests for create book endpoint as f
 
 As exercise, implement the following scenarios:
 1. `GET /books`
-   - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database 
-   - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+   - [ ] Validate a 500 response status code when Cassandra times out to query all the books on database 
+   - [ ] Validate a 500 response status code when Cassandra has unavailable nodes querying all
 2. `GET /books/{id}`
-   - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database
-   - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+   - [ ] Validate a 500 response status code when Cassandra times out to query by id on database
+   - [ ] Validate a 500 response status code when Cassandra has unavailable nodes querying by id
 3. `PUT /books/{id}`
-   - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database
-   - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+   - [ ] Validate a 500 response status code when Cassandra times out to query by id on database
+   - [ ] Validate a 500 response status code when Cassandra has unavailable nodes querying by id
+   - [ ] Validate a 500 response status code when Cassandra times out to insert books on database
+   - [ ] Validate a 500 response status code when Cassandra has unavailable nodes on insert 
 4. `DELETE /books/{id}`
-    - [ ] Validate a 500 response status code when Cassandra gets timeout to query all the books on database
-    - [ ] Validate a 500 response status code when Cassandra gets has unavailable nodes
+   - [ ] Validate a 500 response status code when Cassandra times out to query by id on database
+   - [ ] Validate a 500 response status code when Cassandra has unavailable nodes querying by id
+   - [ ] Validate a 500 response status code when Cassandra times out to delete books on database
+   - [ ] Validate a 500 response status code when Cassandra has unavailable nodes on delete 
+
+Exercises resolution are available on the branch `simulacron-tests`
