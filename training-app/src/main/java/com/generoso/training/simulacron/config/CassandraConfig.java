@@ -1,12 +1,18 @@
 package com.generoso.training.simulacron.config;
 
+import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.CqlSessionFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
+import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.data.cassandra.core.convert.CassandraConverter;
+import org.springframework.data.cassandra.core.cql.CqlTemplate;
 import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecification;
 import org.springframework.data.cassandra.core.cql.keyspace.DropKeyspaceSpecification;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
@@ -14,7 +20,7 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 import java.util.List;
 
 @Configuration
-@EnableCassandraRepositories(basePackages = "com.generoso.training.simulacron.datarest")
+@EnableCassandraRepositories(basePackages = "com.generoso.training.simulacron", cassandraTemplateRef = "cassandraTemplate")
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Autowired
@@ -63,6 +69,13 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Override
     public String[] getEntityBasePackages() {
-        return new String[]{"com.generoso.training.simulacron.datarest"};
+        return new String[]{"com.generoso.training.simulacron"};
+    }
+
+    @Bean
+    public CassandraTemplate cassandraTemplate(CqlSession cqlSession, CassandraConverter cassandraConverter, CqlTemplate cqlTemplate) {
+        CassandraTemplate cassandraTemplate = new CassandraTemplate(cqlTemplate, cassandraConverter);
+        cassandraTemplate.setUsePreparedStatements(false);
+        return cassandraTemplate;
     }
 }

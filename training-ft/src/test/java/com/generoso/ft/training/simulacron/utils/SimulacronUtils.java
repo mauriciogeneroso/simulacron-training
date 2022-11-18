@@ -20,6 +20,7 @@ public class SimulacronUtils {
     private static final int CASSANDRA_PORT = findUnusedLocalPort();
 
     private static BoundCluster simulacronCluster;
+    private static boolean isSimulacronRunning;
 
     public static void startSimulacron() {
         try {
@@ -37,6 +38,7 @@ public class SimulacronUtils {
             boundCluster.start();
             log.info("Simulacron started successfully");
             SimulacronUtils.simulacronCluster = boundCluster;
+            SimulacronUtils.isSimulacronRunning = true;
         } catch (Exception ex) {
             log.error("Could not start cassandra with simulacron ", ex);
             throw ex;
@@ -44,7 +46,10 @@ public class SimulacronUtils {
     }
 
     public static void stopSimulacron() {
-        SimulacronUtils.simulacronCluster.stop();
+        if (isSimulacronRunning) {
+            SimulacronUtils.simulacronCluster.stop();
+            isSimulacronRunning = false;
+        }
     }
 
     public static BoundCluster getSimulacronCluster() {

@@ -31,6 +31,13 @@ public class RequestStepDefinitions {
         scenarioState.setRequestTemplate(requestTemplate);
     }
 
+    @Given("an endpoint {} is prepared with id {}")
+    public void anEndpointIsPreparedWithId(Endpoint endpoint, String id) {
+        var requestTemplate = getRequestTemplate(endpoint);
+        requestTemplate.pathParameter(id);
+        scenarioState.setRequestTemplate(requestTemplate);
+    }
+
     @When("the request is sent")
     public void theEndpointReceivesARequest() {
         var response = client.execute(scenarioState.getRequestTemplate());
