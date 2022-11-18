@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import static com.generoso.ft.training.simulacron.config.SimulacronConfig.*;
+import static com.generoso.ft.training.simulacron.utils.SimulacronUtils.*;
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HooksDefinitions {

@@ -1,4 +1,4 @@
-package com.generoso.ft.training.simulacron.config;
+package com.generoso.ft.training.simulacron.utils;
 
 import com.datastax.oss.simulacron.common.cluster.ClusterSpec;
 import com.datastax.oss.simulacron.server.BoundCluster;
@@ -15,7 +15,7 @@ import static com.generoso.ft.training.simulacron.utils.NetworkUtils.findUnusedL
 @Slf4j
 @Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SimulacronConfig {
+public class SimulacronUtils {
 
     private static final int CASSANDRA_PORT = findUnusedLocalPort();
 
@@ -36,7 +36,7 @@ public class SimulacronConfig {
             log.info("Starting Simulacron node");
             boundCluster.start();
             log.info("Simulacron started successfully");
-            SimulacronConfig.simulacronCluster = boundCluster;
+            SimulacronUtils.simulacronCluster = boundCluster;
         } catch (Exception ex) {
             log.error("Could not start cassandra with simulacron ", ex);
             throw ex;
@@ -44,11 +44,11 @@ public class SimulacronConfig {
     }
 
     public static void stopSimulacron() {
-        SimulacronConfig.simulacronCluster.stop();
+        SimulacronUtils.simulacronCluster.stop();
     }
 
     public static BoundCluster getSimulacronCluster() {
-        return SimulacronConfig.simulacronCluster;
+        return SimulacronUtils.simulacronCluster;
     }
 
     public static String getSimulacronPort() {

@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static com.datastax.oss.simulacron.common.stubbing.PrimeDsl.readTimeout;
 import static com.datastax.oss.simulacron.common.stubbing.PrimeDsl.when;
-import static com.generoso.ft.training.simulacron.config.SimulacronConfig.getSimulacronCluster;
+import static com.generoso.ft.training.simulacron.utils.SimulacronUtils.getSimulacronCluster;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SimulacronStepsDefinitions {
