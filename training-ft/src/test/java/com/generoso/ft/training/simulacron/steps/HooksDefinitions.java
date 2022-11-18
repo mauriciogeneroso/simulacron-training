@@ -14,7 +14,7 @@ import static com.generoso.ft.training.simulacron.config.SimulacronConfig.*;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HooksDefinitions {
 
-    private static final String SIMULACRON_TAG = "@simulacron";
+//    private static final String SIMULACRON_TAG = "@simulacron";
 
     private ConfigurableApplicationContext sdApplicationContext;
 
@@ -31,20 +31,23 @@ public class HooksDefinitions {
     }
 
     private void startDatabase(Scenario scenario) {
-        var sourceTagNames = scenario.getSourceTagNames();
-        if (sourceTagNames.contains(SIMULACRON_TAG)) {
-            startSimulacron();
-            System.setProperty("spring.data.cassandra.port", getSimulacronPort());
-        } else {
-            System.out.println("Using real cassandra container!");
-        }
+//        var sourceTagNames = scenario.getSourceTagNames();
+//        if (sourceTagNames.contains(SIMULACRON_TAG)) {
+//            startSimulacron();
+//            System.setProperty("spring.data.cassandra.port", getSimulacronPort());
+//        } else {
+//            System.out.println("Using real cassandra container!");
+//        }
+        startSimulacron();
+        System.setProperty("spring.data.cassandra.port", getSimulacronPort());
     }
 
     private void stopDatabase(Scenario scenario) {
-        var sourceTagNames = scenario.getSourceTagNames();
-        if (sourceTagNames.contains(SIMULACRON_TAG)) {
-            stopSimulacron();
-        }
+//        var sourceTagNames = scenario.getSourceTagNames();
+//        if (sourceTagNames.contains(SIMULACRON_TAG)) {
+//            stopSimulacron();
+//        }
+        stopSimulacron();
     }
 
     private void startApplication() {
