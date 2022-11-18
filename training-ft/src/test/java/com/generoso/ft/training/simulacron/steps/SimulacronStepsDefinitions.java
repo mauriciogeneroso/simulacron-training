@@ -16,7 +16,9 @@ public class SimulacronStepsDefinitions {
 
     private static final Map<String, String> queries = Map.of(
             "HEALTH_CHECK", "SELECT now() FROM system.local",
-            "ADD_BOOK", "INSERT INTO book (id,isbn,publisher,title) VALUES (?,?,?,?)"
+            "ADD_BOOK", "INSERT INTO book (id,isbn,publisher,title) VALUES (?,?,?,?)",
+            "GET_ALL_BOOKS", "SELECT * FROM book",
+            "GET_BOOK_BY_ID", "SELECT * FROM book WHERE id=? LIMIT 1"
     );
 
     private final BoundCluster cassandraCluster;
